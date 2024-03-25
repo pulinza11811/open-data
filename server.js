@@ -1,45 +1,22 @@
-const users = require('./db')
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 3000;
+const express = require('express')
 
-// - เวอร์ชั่น Express 4.16.0+ ขึ้นไป
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+const morgan = require('morgan')
+const cors = require('cors')
+const bodyParse = require('body-parser')
 
-// - เวอร์ชั่นต่ำกว่า Express 4.16.0+
-// const bodyParser = require('body-parser')
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({ extended: true }))
+const connectDB = require('./config/db')
 
-app.get("/", (req, res) => {
-  res.send("Hello! Node.js");
-});
+const { readdirSync } = require('fs')
 
-app.get('/users', (req, res) => {
-  res.json(users)
-})
+const app = express()
 
-app.get('/users/:id', (req, res) => {
-  res.json(users.find(user => user.id === Number(req.params.id)))
-})
+connectDB()
 
-app.post('/users', (req, res) => {
-  users.push(req.body)
-  let json = req.body
-  res.send(`Add new user '${json.username}' completed.`)
-})
+app.use(morgan('dev'))
+app.use(cors())
+app.use(bodyParse.json({ limit: '10mb'}))
 
-app.put('/users/:id', (req, res) => {
-  const updateIndex = users.findIndex(user => user.id === Number(req.params.id))
-  res.send(`Update user id: '${users[updateIndex].id}' completed.`)
-})
+readdirSync('./route')
+    .map((url) => app.use('/api', require('./route/' + url)))
 
-app.delete('/users/:id', (req, res) => {
-  const deletedIndex = users.findIndex(user => user.id === Number(req.params.id))
-  res.send(`Delete user '${users[deletedIndex].username}' completed.`)
-})
-
-app.listen(port, () => {
-  console.log(`Starting node.js at port ${port}`);
-});
+app.listen(3000,()=> console.log('Server is running on port 3000'))
