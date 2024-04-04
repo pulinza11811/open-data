@@ -1,12 +1,11 @@
-const Product = require('../model/product')
+const { Product, Districts } = require('../model/product');
 
-
-exports.read = async (req,res) =>
+exports.readProvince = async (req,res) =>
 {
     try
     {
         const id = req.params.id
-        const producted = await Product.findOne({_id:id}).exec()
+        const producted = await Product.findOne({_id:id}).lean().exec()
         res.send(producted)
     }
     catch (err)
@@ -16,11 +15,12 @@ exports.read = async (req,res) =>
     }
 }
 
-exports.list = async (req,res) =>
+exports.readDistricts = async (req,res) =>
 {
     try
     {
-        const producted = await Product.find({}).exec()
+        const id = req.params.id
+        const producted = await Districts.findOne({_id:id}).lean().exec()
         res.send(producted)
     }
     catch (err)
@@ -30,12 +30,41 @@ exports.list = async (req,res) =>
     }
 }
 
-exports.create = async (req,res) =>
+exports.listProvince = async (req,res) =>
+{
+    try
+    {
+        const producted = await Product.find({}).lean().exec()
+        res.send(producted);
+    }
+    catch (err)
+    {
+        console.log(err);
+        res.status(404).send('Server Error')
+    }
+}
+
+exports.listDistricts = async (req,res) =>
+{
+    try
+    {
+        const producted = await Districts.find({}).lean().exec()
+        res.send(producted);
+    }
+    catch (err)
+    {
+        console.log(err);
+        res.status(404).send('Server Error')
+    }
+}
+
+exports.createProvince = async (req,res) =>
 {
     try
     {
         console.log(req.body);
         const producted = await Product(req.body).save()
+        console.log(producted);
         res.send(producted)
     }
     catch (err)
@@ -45,7 +74,23 @@ exports.create = async (req,res) =>
     }
 }
 
-exports.update = async (req,res) =>
+exports.createDistricts = async (req,res) =>
+{
+    try
+    {
+        console.log(req.body);
+        const producted = await Districts(req.body).save()
+        console.log(producted);
+        res.send(producted)
+    }
+    catch (err)
+    {
+        console.log(err);
+        res.status(404).send('Server Error')
+    }
+}
+
+exports.updateProvince = async (req,res) =>
 {
     try
     {
@@ -61,12 +106,46 @@ exports.update = async (req,res) =>
         res.status(404).send('Server Error')
     }
 }
-exports._delete = async (req,res) =>
+
+exports.updateDistricts = async (req,res) =>
+{
+    try
+    {
+        const id = req.params.id
+        const updated = await Districts
+        .findOneAndUpdate({_id:id},req.body, {new: true})
+        .exec()
+        res.send(updated)
+    }
+    catch (err)
+    {
+        console.log(err);
+        res.status(404).send('Server Error')
+    }
+}
+
+exports._deleteProvince = async (req,res) =>
 {
     try
     {
         const id = req.params.id
         const _deleted = await Product
+        .findOneAndDelete({_id:id}).exec()
+        res.send('Delete Success')
+    }
+    catch (err)
+    {
+        console.log(err);
+        res.status(404).send('Server Error')
+    }
+}
+
+exports._deleteDistricts = async (req,res) =>
+{
+    try
+    {
+        const id = req.params.id
+        const _deleted = await Districts
         .findOneAndDelete({_id:id}).exec()
         res.send('Delete Success')
     }

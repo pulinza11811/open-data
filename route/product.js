@@ -1,12 +1,19 @@
 const express = require('express')
 const router = express.Router()
 
-const { read, list, create, update, _delete } = require('../controller/product')
+const { readProvince, listProvince, createProvince, updateProvince, _deleteProvince } = require('../controller/product')
+const { readDistricts, listDistricts, createDistricts, updateDistricts,_deleteDistricts } = require('../controller/product')
 
-router.get('/province', list)
-router.get('/province/:id',read)
-router.post('/province', create)
-router.put('/province/:id', update)
-router.delete('/province/:id', _delete)
+router.get('/province', listProvince)
+router.get('/province/:id',readProvince)
+router.post('/province', createProvince)
+router.put('/province/:id', updateProvince)
+router.delete('/province/:id', _deleteProvince)
+
+router.get('/districts', listDistricts)
+router.get('/districts/:id',readDistricts)
+router.post('/districts', createDistricts)
+router.put('/districts/:id', updateDistricts)
+router.delete('/districts/:id', _deleteDistricts)
 
 module.exports = router

@@ -1,24 +1,36 @@
 const mongoose = require('mongoose')
 
-const productSchema = mongoose.Schema(
+const productSchema =  mongoose.Schema
+(
     {
-        ProvinceName: String,
-        Population : 
+        id: Number,
+        provinceName: String,
+        area: Number,
+        region: String,
+
+        districts:
         {
-            type: Number
-        }
-        // detail:
-        // {
-        //     type: String
-        // },
-        // price:
-        // {
-        //     type: Number
-        // }
+            name: String,
+        },
     },
-    {
-        timestamps: true
-    }
+    // {
+    //     timestamps: true,
+    // },
 )
 
-module.exports = mongoose.model('product',productSchema)
+const districtsSchema =  mongoose.Schema
+(
+    {
+        districtName: String,
+    },
+    {
+        timestamps: true,
+    },
+)
+
+//module.exports = mongoose.model('product', productSchema)
+module.exports = 
+{
+    Product: mongoose.model('product', productSchema),
+    Districts: mongoose.model('districts', districtsSchema)
+};
