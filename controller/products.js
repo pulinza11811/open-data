@@ -1,4 +1,4 @@
-const { Product, Districts } = require("../model/product");
+const { Product, Districts } = require("../model/products");
 
 exports.readProvince = async (req, res) => {
   try {

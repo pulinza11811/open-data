@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const { readProvince, listProvince, createProvince, updateProvince, _deleteProvince } = require('../controller/product')
-const { readDistricts, listDistricts, createDistricts, updateDistricts,_deleteDistricts } = require('../controller/product')
+const { readProvince, listProvince, createProvince, updateProvince, _deleteProvince } = require('../controller/products')
+const { readDistricts, listDistricts, createDistricts, updateDistricts,_deleteDistricts } = require('../controller/products')
 
 router.get('/province', listProvince)
 router.get('/province/:id',readProvince)
