@@ -14,9 +14,11 @@ connectDB() //เรียกใช้ func เพื่อ connect กับ DB
 
 app.use(morgan('dev')) //ใช้ morgan middleware เพื่อบันทึกข้อมูลการร้องขอ HTTP ลงใน console
 app.use(cors()) //ใช้เพื่อให้แอปพลิเคชันสามารถรับข้อมูลจากโดเมนอื่นๆได้
-app.use(bodyParse.json({ limit: '10mb'})) //ใช้ body-parser middleware เพื่อแปลงข้อมูลใน HTTP request body เป็น Json
+app.use(bodyParse.json({ limit: '10mb' })) //ใช้ body-parser middleware เพื่อแปลงข้อมูลใน HTTP request body เป็น Json
 
 readdirSync('./route') //อ่านไฟล์ในโฟลเดอร์ route
     .map((url) => app.use('/api', require('./route/' + url))) //เรียกใช้งาน route ที่อ่านได้
-
-app.listen(3000,()=> console.log('Server is running on port 3000')) //เริ่มต้น express app ที่ port 3000
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+app.listen(3000, () => console.log('Server is running on port 3000')) //เริ่มต้น express app ที่ port 3000
