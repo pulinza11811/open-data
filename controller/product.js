@@ -33,7 +33,7 @@ exports.listProvince = async (req, res) => {
 };
 
 exports.listDistricts = async (req, res) => {
-  const perPage = 100; // จำนวนรายการต่อหน้า
+  const perPage = 50; // จำนวนรายการต่อหน้า
   const page = parseInt(req.query.page) || 1;
   try {
     const totalDistricts = await Districts.countDocuments();
