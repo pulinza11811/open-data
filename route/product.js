@@ -10,7 +10,7 @@ router.post('/province', createProvince)
 router.put('/province/:id', updateProvince)
 router.delete('/province/:id', _deleteProvince)
 
-router.get('/districts', listDistricts)
+router.get('/districts/page/:page', listDistricts);
 router.get('/districts/:id',readDistricts)
 router.post('/districts', createDistricts)
 router.put('/districts/:id', updateDistricts)

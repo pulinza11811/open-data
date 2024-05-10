@@ -38,10 +38,10 @@ exports.listProvince = async (req, res) => {
 
 exports.listDistricts = async (req, res) => {
     const perPage = 100; 
-    const page = parseInt(req.query.page) || 1; 
+    const page = parseInt(req.params.page) || 1; // ใช้ req.params เพื่อรับค่าจาก URL
     try {
         const totalDistricts = await Districts.countDocuments();
-        const districts = await Districts.find({}).skip((perPage * page) - perPage).limit(perPage).lean().exec(); // ดึงข้อมูลจาก MongoDB
+        const districts = await Districts.find({}).skip((perPage * page) - perPage).limit(perPage).lean().exec();
 
         res.send({
             districts: districts,
