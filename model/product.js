@@ -28,9 +28,19 @@ const districtsSchema =  mongoose.Schema
     },
 )
 
+const subdistrictsSchema =  mongoose.Schema
+(
+    {
+        subdistrictName: String,
+    },
+    {
+        timestamps: true,
+    },
+)
 //module.exports = mongoose.model('product', productSchema)
 module.exports = 
 {
     Product: mongoose.model('product', productSchema),
-    Districts: mongoose.model('districts', districtsSchema)
+    Districts: mongoose.model('districts', districtsSchema),
+    Subdistricts: mongoose.model('subdistricts', subdistrictsSchema)
 };
